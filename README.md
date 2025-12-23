@@ -130,16 +130,16 @@ Node.js 18+ | pnpm 9+ (recommended)
 ### Installation
 ```bash
 # Clone & Install
-git clone <repo-url>
+git clone https://github.com/Mahmoudramadan21/mega-team-website
 cd mega-team-website
-pnpm install
+npm install
 
 # Development
-pnpm dev
+npm dev
 
 # Build & Preview
-pnpm build
-pnpm start
+npm build
+npm start
 ```
 
 ### Environment Variables
