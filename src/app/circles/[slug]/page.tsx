@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { circles } from '@/data/circle';
-import ArrowRightIcon from '@/assets/icons/arrow-right-icon.svg';
+import { ArrowRightIcon } from "@/assets/icons";
 
 interface CirclePageProps {
   params: Promise<{

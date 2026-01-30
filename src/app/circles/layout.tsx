@@ -55,7 +55,7 @@ export default function CirclesLayout({ children }: { children: React.ReactNode 
                   ref={(el) => {
                     linkRefs.current[circle.slug] = el;
                   }}
-                  className={`group flex flex-col items-center shrink-0 snap-center w-full md:w-auto p-4 rounded-3xl transition-all duration-500 hover:scale-110 ${isActive ? 'bg-primary-500 text-neutral-50' : 'bg-neutral-50 text-neutral-700'}`}
+                  className={`group flex flex-col items-center shrink-0 snap-center w-full md:w-auto p-4 rounded-3xl transition-all duration-500 hover:scale-110 ${isActive ? "bg-primary-500 text-neutral-50" : "bg-neutral-50 text-neutral-700"}`}
                   aria-label={`View details about ${circle.title} circle`}
                 >
                   {/* Circle illustration container with fixed aspect ratio */}
@@ -64,7 +64,7 @@ export default function CirclesLayout({ children }: { children: React.ReactNode 
                       src={circle.imageSrc}
                       alt={`${circle.title} circle illustration`}
                       fill
-                      className="object-cover rounded-3xl"
+                      className="rounded-3xl"
                       loading="lazy"
                     />
                   </div>
