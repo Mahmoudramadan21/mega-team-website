@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import Script from 'next/script'; 
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import { Footer, Header } from "@/components/layout";
+import Script from "next/script"; 
 import "./globals.css";
 
 /**
@@ -30,27 +29,31 @@ export const metadata: Metadata = {
 
   // Title configuration
   title: {
-    default: "Build Tech Skills | MEGA",
+    default: "Grow Your Skills | MEGA",
     template: "%s | MEGA", // Page-specific titles will appear as "Page Title | MEGA"
   },
 
   // Core SEO tags
   description:
-    "Build real tech skills with MEGA – leading volunteer student tech community at Mansoura University. Hands-on projects, workshops, events, and expert mentorship in UI/UX, Flutter, Data Science, Backend & more.",
-  
+    "Grow your skills with MEGA – the leading student volunteer community at Mansoura University. Participate in hands-on projects, workshops, events, and mentorship opportunities across technical and non-technical areas.",
+
   keywords: [
     "MEGA",
     "MEGA Mansoura",
     "MEGA Mansoura University",
     "MEGA MU",
-    "tech community Mansoura",
-    "student tech team Mansoura",
-    "programming workshops Mansoura",
-    "UI/UX Mansoura",
-    "Flutter Mansoura",
-    "Data Science Mansoura",
-    "Backend Development Mansoura",
-    "tech events Mansoura University",
+    "student community Mansoura",
+    "volunteer team Mansoura",
+    "student activities Mansoura",
+    "workshops Mansoura",
+    "projects Mansoura",
+    "mentorship Mansoura",
+    "technical skills Mansoura",
+    "non-technical skills Mansoura",
+    "leadership workshops Mansoura",
+    "soft skills development Mansoura",
+    "student events Mansoura University",
+    "collaboration and teamwork Mansoura",
   ],
 
   alternates: {
@@ -76,9 +79,9 @@ export const metadata: Metadata = {
 
   // Open Graph (Facebook, LinkedIn, etc.)
   openGraph: {
-    title: "MEGA | Build Tech Skills",
+    title: "MEGA | Grow Your Skills",
     description:
-      "Build real tech skills through hands-on projects, workshops, events, and mentorship. Join MEGA – leading student tech community at Mansoura University.",    
+      "Join MEGA – the student-led community at Mansoura University offering workshops, projects, events, and mentorship for both technical and non-technical skills.",
     siteName: "MEGA",
     images: [
       {
@@ -95,12 +98,12 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "MEGA | Build Tech Skills",
+    title: "MEGA | Grow Your Skills",
     description:
-      "Hands-on projects, workshops & mentorship to build real tech skills. Join MEGA at Mansoura University.",    
-    images: ["/twitter-image.jpg"], // Optional: separate image, or reuse OG
-    creator: "@mega_team", // Replace with your X/Twitter handle
-    site: "@mega_team",
+      "Workshops, projects, events, and mentorship at MEGA – develop both technical and non-technical skills as part of a vibrant student community at Mansoura University.",
+    images: ["/twitter-image.jpg"],
+    creator: "@MegaTeamMU",
+    site: "@MegaTeamMU",
   },
 
   // Additional useful tags
@@ -128,31 +131,32 @@ export default function RootLayout({
             alternateName: "MEGA Mansoura University",
             url: "https://megateam.vercel.app/",
             logo: "https://megateam.vercel.app/images/logo.svg",
-            description: "MEGA is a leading volunteer student tech community at Mansoura University focused on Computer Science and IT skills through real projects, events, workshops, and mentorship.",
+            description:
+              "MEGA is a leading student volunteer community at Mansoura University, empowering students through a variety of activities, projects, workshops, and mentorship in both technical and non-technical skills.",
             foundingDate: "2018",
             founder: {
               "@type": "Person",
-              name: "MEGA Founding Members"
+              name: "MEGA Founding Members",
             },
             address: {
               "@type": "PostalAddress",
               addressLocality: "Mansoura",
               addressRegion: "Dakahlia",
-              addressCountry: "EG"
+              addressCountry: "EG",
             },
             contactPoint: {
               "@type": "ContactPoint",
               contactType: "General Inquiry",
-              email: "mega.team.mu@gmail.com"
+              email: "mega.team.mu@gmail.com",
             },
             sameAs: [
               "https://www.facebook.com/megateam.mu18",
               "https://www.instagram.com/megateammu",
-              "https://x.com/MegaTeamMU", 
+              "https://x.com/MegaTeamMU",
               "https://eg.linkedin.com/company/mega-team-mu",
-              "https://www.youtube.com/@MEGATeamMU" 
-            ]
-          })
+              "https://www.youtube.com/@MEGATeamMU",
+            ],
+          }),
         }}
       />
       {/* Main body content wrapper */}
@@ -160,7 +164,7 @@ export default function RootLayout({
         {/* Site header component - includes navigation and logo */}
         <Header />
         {/* Primary content area for page-specific children */}
-        <main>{children}</main>
+        <main id="main">{children}</main>
         {/* Site footer component - includes links, contact info, and copyright */}
         <Footer />
       </body>
