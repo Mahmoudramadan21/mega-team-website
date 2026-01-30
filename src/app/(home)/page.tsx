@@ -1,13 +1,17 @@
-import HeroSection from "@/app/(home)/components/HeroSection";
-import TotalEventsSection from "@/app/(home)/components/TotalEventsSection";
-import UpcomingEventSection from "@/app/(home)/components/UpcomingEventSection";
-import PodcastsSection from "@/app/(home)/components/PodcastsSection";
-import CirclesSection from "@/app/(home)/components/CirclesSection";
-import MotivationSection from "@/app/(home)/components/MotivationSection";
-import SponsorsMarquee from "@/app/(home)/components/SponsorsMarquee";
+import {
+  HeroSection,
+  TotalEventsSection,
+  UpcomingEventSection,
+  PodcastsSection,
+  CirclesSection,
+  MotivationSection,
+  SponsorsMarquee,
+} from "./components";
+
+import { sponsors } from "@/data/sponser";
 
 /**
- * Home Page Component
+ * Home Page
  *
  * The main landing page of the MEGA website. Renders all major sections in a logical,
  * user-friendly order to guide visitors from introduction → upcoming opportunities →
@@ -30,24 +34,24 @@ export default function Home() {
     <>
       {/* Hero section with main headline, description, and primary call-to-action */}
       <HeroSection />
-      
+
       {/* Upcoming event highlight – drives immediate engagement and registrations */}
       <UpcomingEventSection />
-      
+
       {/* Technical circles showcase – core community skill-building programs */}
-      <CirclesSection/>
-      
+      <CirclesSection />
+
       {/* Past events archive – builds trust through demonstrated track record */}
       <TotalEventsSection />
-      
+
       {/* Podcast episodes section – educational and inspirational audio content */}
       <PodcastsSection />
-      
+
       {/* Motivational quotes carousel – emotional connection and inspiration */}
       <MotivationSection />
-      
+
       {/* Sponsors marquee – recognition of partners and supporters */}
-      <SponsorsMarquee />
+      <SponsorsMarquee sponsors={sponsors} />
     </>
   );
 }
