@@ -7,10 +7,17 @@ import { MotivationQuote } from '@/types/motivation';
 /**
  * motivationQuotes
  *
- * Centralized array of motivational quotes.
- * - Data-driven for easy updates and potential randomization or API fetching in the future.
- * - Each quote has a unique visual theme (icon + gradient) for better engagement.
- * - Quotes chosen for relevance to tech, innovation, perseverance, and personal growth.
+ * Collection of motivational quotes used across the site (e.g. homepage carousel).
+ *
+ * Main Purpose:
+ *   • Inspire and motivate visitors (students & tech enthusiasts)
+ *   • Add emotional & personal touch to the brand experience
+ *   • Reinforce MEGA's core values through relevant messaging
+ *
+ * Key Characteristics:
+ *   • Each quote paired with unique icon + gradient for visual distinction
+ *   • Readonly + as const for immutability
+ *   • Ready for randomization, filtering, or section-specific display
  */
 export const motivationQuotes: readonly MotivationQuote[] = [
   // 1
