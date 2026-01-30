@@ -62,10 +62,10 @@ export const metadata: Metadata = {
     siteName: 'MEGA',
     images: [
       {
-        url: upcomingEvent.image.src,
-        width: upcomingEvent.image.width,
-        height: upcomingEvent.image.height,
-        alt: upcomingEvent.image.alt,
+        url: upcomingEvent.images[0].src,
+        width: upcomingEvent.images[0].width,
+        height: upcomingEvent.images[0].height,
+        alt: upcomingEvent.images[0].alt,
       },
     ],
     type: 'website',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `Register for ${upcomingEvent.title}.`,
     description: `Hands-on coding fun for kids at Mansoura University on ${formatEventDate(upcomingEvent.dateTime)}! Limited seats – secure your spot now. #MEGAMansoura #KidsCoding`,
-    images: [upcomingEvent.image.src],
+    images: [upcomingEvent.images[0].src],
   },
 };
 
@@ -91,5 +91,5 @@ export default function Page() {
   return <UpcomingEventClient />;
 }
 
-// Optional: Revalidate daily to keep countdown/date fresh (ISR)
+// Revalidate daily to keep countdown/date fresh (ISR)
 export const revalidate = 86400; // 24 hours

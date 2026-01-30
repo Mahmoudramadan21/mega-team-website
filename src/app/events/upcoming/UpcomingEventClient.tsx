@@ -1,20 +1,83 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import EventCountdown from '@/components/ui/events/EventCountdown';
-import EventHero from '@/components/ui/events/EventHero';
-import EventDetails from '@/components/ui/events/EventDetails';
-import RegistrationForm from '@/components/ui/events/RegistrationForm';
-import SuccessModal from '@/components/ui/events/SuccessModal';
-import Script from 'next/script';
-import { upcomingEvent } from '@/data/upcoming-event';
+import { useState } from "react";
+import Script from "next/script";
 
+import RegistrationForm from "./components/RegistrationForm";
+
+import { upcomingEvent } from "@/data/upcoming-event";
+import { useCountdown } from "@/hooks/useCountdown";
+
+import {
+  ApplicationClosedMessage,
+  RegistrationCountdown,
+  RegistrationDetails,
+  RegistrationHero,
+  SuccessModal,
+} from "@/components/ui";
+
+import {
+  CalendarIcon,
+  ClockIcon,
+  MapPinIcon,
+  RecordIcon,
+} from "@/assets/icons";
+
+const eventMeta = [
+  {
+    icon: "calendar",
+    label: "Date",
+    value:
+      upcomingEvent.meta.find((m) => m.icon === "calendar")?.value || "TBA",
+  },
+  {
+    icon: "clock",
+    label: "Time",
+    value: upcomingEvent.meta.find((m) => m.icon === "clock")?.value || "TBA",
+  },
+  {
+    icon: "map-pin",
+    label: "Location",
+    value:
+      upcomingEvent.meta.find((m) => m.icon === "map-pin")?.value ||
+      "Mansoura University",
+  },
+  ...upcomingEvent.meta
+    .filter((m) => !["calendar", "clock", "map-pin"].includes(m.icon))
+    .map((m) => ({ icon: m.icon, label: m.label, value: m.value })),
+];
+
+/**
+ * UpcomingEventClient
+ *
+ * Main client-side page component for displaying the featured upcoming event.
+ * Handles countdown, hero section, event details, registration form, and success feedback.
+ *
+ * Main Purpose:
+ *   • Promote and drive registrations for the most important upcoming event
+ *   • Show real-time countdown and clear call-to-action
+ *   • Provide all necessary event information in one place
+ *   • Give immediate success feedback after form submission
+ *
+ * Key Characteristics:
+ *   • Conditional rendering: shows form/countdown when open, closed message when expired
+ *   • SEO-optimized with JSON-LD structured data (Event schema)
+ *   • Uses static upcomingEvent data (centralized & easy to update)
+ *   • Responsive layout with container padding adjustments
+ *   • Success modal triggered after successful form submission
+ */
 export default function UpcomingEventClient() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { timeLeft, isExpired } = useCountdown(
+    upcomingEvent.dateTime ?? "2027-01-18T09:00:00",
+  );
+
+  const isEventClosed = isExpired;
+
   return (
     <>
-      {/* Structured data for the upcoming event (Event schema.org markup) */}
+      {/* Structured data for SEO (JSON-LD Event schema) */}
       <Script
         id="upcoming-event-schema"
         type="application/ld+json"
@@ -24,15 +87,23 @@ export default function UpcomingEventClient() {
             "@context": "https://schema.org",
             "@type": "Event",
             name: upcomingEvent.title,
-            description: upcomingEvent.description.split('\n\n')[0].slice(0, 300) + '...',
-            startDate: upcomingEvent.dateTime ? new Date(upcomingEvent.dateTime).toISOString() : undefined,
-            eventStatus: "https://schema.org/EventScheduled",
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            image: upcomingEvent.image.src ? `https://megateam.vercel.app/${upcomingEvent.image.src}` : undefined,
+            description:
+              upcomingEvent.description.split("\n\n")[0].slice(0, 300) + "...",
+            startDate: upcomingEvent.dateTime
+              ? new Date(upcomingEvent.dateTime).toISOString()
+              : undefined,
+            eventStatus: isEventClosed
+              ? "https://schema.org/EventCancelled"
+              : "https://schema.org/EventScheduled",
+            eventAttendanceMode:
+              "https://schema.org/OfflineEventAttendanceMode",
+            image: upcomingEvent.images[0]?.src
+              ? `https://megateam.vercel.app/${upcomingEvent.images[0].src}`
+              : undefined,
             organizer: {
               "@type": "Organization",
               name: "MEGA Team Mansoura University",
-              url: "https://megateam.vercel.app"
+              url: "https://megateam.vercel.app",
             },
             location: {
               "@type": "Place",
@@ -40,41 +111,55 @@ export default function UpcomingEventClient() {
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Mansoura",
-                addressCountry: "EG"
-              }
+                addressCountry: "EG",
+              },
             },
-            offers: {
-              "@type": "Offer",
-              name: "Registration Required",
-              price: "0",
-              priceCurrency: "EGP",
-              url: "https://megateam.vercel.app/events/upcoming",
-              availability: "https://schema.org/LimitedAvailability"
-            },
-            performer: {
-              "@type": "Organization",
-              name: "MEGA Team"
-            }
-          })
+          }),
         }}
       />
 
-      {/* Live countdown timer to the event start time */}
-      <EventCountdown eventDateTime={upcomingEvent.dateTime ?? '2026-01-18T09:00:00'} />
+      {isEventClosed ? (
+        // Event expired or manually closed → show full-page closed message
+        <ApplicationClosedMessage />
+      ) : (
+        // Event still open → show full registration flow
+        <>
+          {/* Countdown banner – prominent reminder */}
+          <RegistrationCountdown
+            timeLeft={timeLeft}
+            ariaLabel="Event starts in"
+          />
 
-      {/* Main content area with vertical padding */}
-      <div className="container py-10 lg:py-16">
-        {/* Hero section adapted for registration mode */}
-        <EventHero event={upcomingEvent} mode="registration" />
-        
-        {/* Detailed event information (date, location, sessions, etc.) */}
-        <EventDetails event={upcomingEvent} />
-        
-        {/* Registration form with success callback to open modal */}
-        <RegistrationForm onSuccess={() => setIsModalOpen(true)} />
-      </div>
+          {/* Main content wrapper */}
+          <div className="container py-10 lg:py-16">
+            {/* Hero section – visual + title + badge */}
+            <RegistrationHero
+              title={`Register for ${upcomingEvent.title}`}
+              image={upcomingEvent.images[0]}
+              badge={upcomingEvent.state === "open" ? "Open" : undefined}
+              badgeColor="#34C759"
+            />
 
-      {/* Success confirmation modal after successful registration */}
+            {/* Event details + meta information */}
+            <RegistrationDetails
+              title={upcomingEvent.title}
+              description={upcomingEvent.description}
+              meta={eventMeta}
+              customIcons={{
+                calendar: CalendarIcon,
+                clock: ClockIcon,
+                "map-pin": MapPinIcon,
+                record: RecordIcon,
+              }}
+            />
+
+            {/* Main registration form */}
+            <RegistrationForm onSuccess={() => setIsModalOpen(true)} />
+          </div>
+        </>
+      )}
+
+      {/* Success confirmation modal after form submission */}
       <SuccessModal
         event={upcomingEvent}
         isOpen={isModalOpen}
