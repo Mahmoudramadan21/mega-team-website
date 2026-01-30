@@ -3,11 +3,18 @@ import { CircleData } from '@/types/circle';
 /**
  * circles
  *
- * Centralized array of all circle data.
- * - Data-driven for easy maintenance, scalability, and potential API integration.
- * - Sorted by ID for consistent rendering order.
- * - Descriptions optimized for SEO with relevant keywords (e.g., 'innovation', 'team culture').
- * - Images: Use unique paths per circle for better visual distinction (currently placeholders).
+ * Complete data for all MEGA Circles (technical & non-technical tracks).
+ *
+ * Main Purpose:
+ *   • Help applicants understand each circle/track before applying
+ *   • Display circle cards / detailed pages in Circles section
+ *   • Support decision-making during application process
+ *
+ * Key Characteristics:
+ *   • Bilingual short + long descriptions
+ *   • Classified as technical / non-technical
+ *   • Contains link to detailed circle page
+ *   • Ready for filtering (technical vs non-technical) & dynamic routing
  */
 export const circles: CircleData[] = [
 {
@@ -24,7 +31,7 @@ export const circles: CircleData[] = [
       `Key Responsibilities:\n• Selecting the right team members\n• Supporting personal and professional growth\n• Monitoring performance\n• Ensuring work-life balance\n\n` +
       `Required Skills:\n• Strong communication and active listening\n• The ability to understand people’s needs\n• Problem-solving with calmness and clarity\n• Organization and consistent follow-up\n• Flexibility and adaptability when facing new situations\n\n` +
       `If you’re passionate about this field and excited to contribute to meaningful development within the team, HR might be the perfect place to start.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/hr.svg',
     type: 'non-technical',
     link: '/circles/hr',
   },
@@ -42,7 +49,7 @@ export const circles: CircleData[] = [
       `FR Focus:\n• Securing financial support\n• Engaging sponsors and donors\n\n` +
       `Required Skills:\n• Creativity in communication\n• Strong relationship-building abilities\n• Quick thinking and adaptability in different situations\n• Negotiation and persuasion skills\n\n` +
       `If you have strong communication skills, enjoy building connections, love organizing impactful events, and know how to secure the support needed to bring a vision to reality, then this circle might be the perfect place for you.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/pr&fr.svg',
     type: 'non-technical',
     link: '/circles/pr-fr',
   },
@@ -59,7 +66,7 @@ export const circles: CircleData[] = [
       `Key Responsibilities:\n• Developing project plans\n• Managing timelines and tasks\n• Monitoring progress\n• Risk management and problem-solving\n\n` +
       `Required Skills:\n• Strong organization and planning\n• Effective communication\n• Leadership and the ability to guide a team\n• Analytical thinking and problem-solving\n• Flexibility and adaptability\n\n` +
       `If you enjoy planning, coordinating tasks, turning ideas into structured steps, and helping teams achieve successful outcomes, then the Project Management Circle could be the perfect place for you.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/pm.svg',
     type: 'non-technical',
     link: '/circles/project-management',
   },
@@ -76,7 +83,7 @@ export const circles: CircleData[] = [
       `Required Skills:\n• Love for learning and discovery\n• Analytical skills\n• Innovation and creativity\n\n` +
       `Anyone working in R&D needs to have a passion for research, a love for learning and discovery, and the ability to innovate new solutions. Strong analytical and problem solving skills are essential to transform ideas into something real and valuable.\n\n` +
       `If you feel you have the drive to explore, develop, and help turn ideas into reality, then this circle might be the perfect place for you to start your journey with MEGA and grow with us.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/r&d.svg',
     type: 'non-technical',
     link: '/circles/rnd',
   },
@@ -92,7 +99,7 @@ export const circles: CircleData[] = [
       `The circle consists of 2 main sections:\n1. Graphic Design – Where concepts turn into striking visuals that reflect the team’s identity and vision.\n2. Video Editing & Motion Design – Where visuals come to life through movement, storytelling, and dynamic content that captures attention and elevates the message.\n\n` +
       `Ideal For:\n• Creative thinkers\n• Visual storytellers\n• Design enthusiasts\n\n` +
       `If you're passionate about creativity, design, and visual storytelling, the Media Circle is your chance to bring ideas to life and shape the image that represents the team to the world.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/media.svg',
     type: 'non-technical',
     link: '/circles/media',
   },
@@ -110,7 +117,7 @@ export const circles: CircleData[] = [
       `Key Responsibilities:\n• Pre-event planning\n• On-ground execution\n• Post-event evaluation\n\n` +
       `Required Skills:\n• Quick thinking\n• Strong organizational abilities\n• Problem-solving skills\n• The ability to work under pressure\n• A talent for creating smooth and memorable event experiences\n\n` +
       `If you feel this station matches your skills and you’re ready to be part of the team that brings every event to life from behind the scenes, make sure to join the form and take your place in the EO Circle.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/eo.svg',
     type: 'non-technical',
     link: '/circles/event-operations',
   },
@@ -126,7 +133,7 @@ export const circles: CircleData[] = [
       `This track empowers you to create software and systems that solve real problems and support daily operations. It also connects to major fields such as Backend Development, Data Science, and more.\n\n` +
       `Focus Areas:\n• Programming foundations\n• Mathematics and logic\n• Problem-solving\n• Software fundamentals\n\n` +
       `If you’re searching for a deeper understanding of the programming world and eager to develop innovative technical solutions, then the Computer Science Circle is the perfect place to begin your journey.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/cs.svg',
     type: 'technical',
     link: '/circles/computer-science',
   },
@@ -143,7 +150,7 @@ export const circles: CircleData[] = [
       `Data Science relies on methods and tools that help us understand complex data. From statistical analysis of large datasets to building predictive models that guide decisions and shape future strategies.\n\n` +
       `Key Areas:\n• Data analysis\n• Statistics\n• Predictive modeling\n• AI techniques\n\n` +
       `If you're eager to uncover insights, understand patterns, and turn raw data into impactful solutions, then the Data Science Circle is your ideal stop on this journey.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/data-science.svg',
     type: 'technical',
     link: '/circles/data-science',
   },
@@ -160,7 +167,7 @@ export const circles: CircleData[] = [
       `Through this circle, we aim to create innovative designs for websites and applications that offer clear, intuitive, and accessible experiences. This includes crafting main pages, choosing colors, arranging elements on screens, and much more.\n\n` +
       `What You Learn:\n• Visual design principles\n• User flows and journeys\n• Interface layout and structure\n• Creative problem-solving\n\n` +
       `If you are passionate about turning ideas into visual journeys, designing smooth user flows, and building products that users love, then the UI/UX Circle is the perfect stop for you on this adventure.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/ui-ux.svg',
     type: 'technical',
     link: '/circles/ui-ux',
   },
@@ -177,7 +184,7 @@ export const circles: CircleData[] = [
       `In this circle, we explore how to build strong systems for managing data, develop powerful and reliable APIs, and work with databases that act as the backbone of every application. Your work here ensures that everything operates smoothly and securely in the background.\n\n` +
       `You Will Explore:\n• Databases\n• APIs\n• Server logic\n• System performance and security\n\n` +
       `If you have the passion to explore the hidden world that powers applications, this circle is your ideal destination on the journey.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/backend.svg',
     type: 'technical',
     link: '/circles/backend-development',
   },
@@ -194,7 +201,7 @@ export const circles: CircleData[] = [
       `This field is more than just UI elements. It is your gateway to a limitless world of creativity across applications, websites, and digital platforms.\n\n` +
       `Core Topics:\n• HTML, CSS, JavaScript\n• UI frameworks\n• Building responsive and dynamic interfaces\n\n` +
       `If you want to be part of the team that transforms static pages into captivating and memorable user experiences, this circle is your perfect destination.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/frontend.svg',
     type: 'technical',
     link: '/circles/frontend-development',
   },
@@ -211,7 +218,7 @@ export const circles: CircleData[] = [
       `Flutter stands out for its fast development environment, dynamic UI, and seamless performance. It opens the door for you to build high-quality applications with impressive user experiences, no matter what platform you target.\n\n` +
       `What You Learn:\n• Dart programming\n• Cross-platform development\n• UI design with Flutter\n\n` +
       `If you want to be part of a team that blends programming with modern and creative app design, this circle is the perfect fit for you.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/flutter.svg',
     type: 'technical',
     link: '/circles/flutter',
   },
@@ -229,7 +236,7 @@ export const circles: CircleData[] = [
       `Business Analysis combines strategic thinking, effective communication, and problem solving. It acts as the bridge between technical teams and clients, ensuring the final product meets its objectives and delivers real value.\n\n` +
       `Focus Areas:\n• Requirement gathering\n• Documentation\n• User stories and use cases\n• Analytical tools (SWOT, BMC)\n\n` +
       `If you are passionate about understanding how projects work, analyzing needs, and creating practical solutions built on data and clear goals, then the Business Analysis track is the place for you.`,
-    imageSrc: '/images/R&D.jpg',
+    imageSrc: '/circles/cs.svg',
     type: 'technical',
     link: '/circles/business-analysis',
   },
