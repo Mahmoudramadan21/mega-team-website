@@ -17,8 +17,8 @@ import { memo } from 'react';
  * - Purely decorative: empty alt and aria-hidden to avoid screen reader noise
  * - Non-interactive (pointer-events-none, select-none)
  * - Memoized with `React.memo` to prevent unnecessary re-renders
- * - All Tailwind classes ordered according to official guidelines:
- *   Layout → Box Model → Typography → Visual → Transitions
+ * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
+
  */
 
 interface PodcastRoundedImageProps {
