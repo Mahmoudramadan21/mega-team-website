@@ -1,9 +1,19 @@
 import { BackgroundDualEpisode, EpisodeData } from "@/types/episode";
 
 /**
- * Podcasts data – separated by variant for distinct layout sections.
- * Centralized arrays for easy maintenance and future dynamic fetching (e.g., from CMS/API).
- * Descriptions are varied and meaningful for better SEO and user engagement.
+ * imageRightEpisodes / imageLeftEpisodes / backgroundDualEpisodes
+ *
+ * Podcast episodes data – separated by visual variant/layout style.
+ *
+ * Main Purpose:
+ *   • Populate podcast section with different card layouts
+ *   • Showcase MEGA podcast content (titles, dates, descriptions)
+ *   • Support multiple visual sections on homepage / podcast page
+ *
+ * Key Characteristics:
+ *   • Grouped by display variant (image-right, image-left, background-dual)
+ *   • Centralized source – easy to add new episodes
+ *   • Ready for sorting by date or episode number
  */
 export const imageRightEpisodes: EpisodeData[] = [
   {
