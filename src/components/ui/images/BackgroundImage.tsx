@@ -15,8 +15,8 @@ import { memo } from 'react';
  * - Fully hidden from screen readers (aria-hidden + empty alt)
  * - Non-interactive (pointer-events-none, select-none)
  * - Memoized with `React.memo` to prevent unnecessary re-renders
- * - All Tailwind classes ordered according to official guidelines:
- *   Layout → Box Model → Typography → Visual → Transitions
+ * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
+
  */
 
 interface BackgroundImageProps {
