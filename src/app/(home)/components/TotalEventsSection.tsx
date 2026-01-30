@@ -2,9 +2,9 @@
 
 import { memo } from 'react';
 
-import EventCard from '@/components/ui/cards/EventCard';
-import { totalEvents } from '@/data/event';
-import { horizontalCarouselKeyNav } from '@/utils/keyboard';
+import { totalEvents } from "@/data/event";
+import { CarouselArrows, EventCard } from "@/components/ui";
+import { useCarousel } from "@/hooks/useCarousel";
 
 /**
  * TotalEvents Section Component
@@ -19,12 +19,15 @@ import { horizontalCarouselKeyNav } from '@/utils/keyboard';
  * - Best Practices: Pure CSS snap scrolling; data-driven; consistent with other sections (Podcasts, Circles).
  */
 function TotalEventsSection() {
+  const { carouselRef, scrollLeft, scrollRight, handleKeyDown, arrows } =
+    useCarousel(320);
+
   return (
     // Main events section with vertical padding and anchor target
     <section
       aria-labelledby="total-events-title"
       id="events"
-      className="py-4 pt-8 lg:py-8 lg:pt-16"
+      className="pt-8 lg:pt-16"
     >
       {/* Centered content wrapper */}
       <div className="container">
@@ -35,23 +38,38 @@ function TotalEventsSection() {
         </h2>
         {/* Descriptive subtitle for engagement and SEO */}
         <p className="section-subtitle">
-          Join our exciting events, workshops, hackathons, tech fairs, and educational programs to level up your skills and network.
+          Join our exciting events, workshops, hackathons, tech fairs, and
+          educational programs to level up your skills and network.
         </p>
 
-        {/* Events Carousel */}
-        {/* Horizontal scrolling carousel with snap behavior and keyboard navigation support */}
-        <div
-          className="carousel-x scrollbar-hidden focus-ring"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="MEGA events showcase carousel"
-          tabIndex={0}
-          onKeyDown={horizontalCarouselKeyNav}
-        >
-          {totalEvents.map((event) => (
-            // Individual event card from data
-            <EventCard key={event.slug} event={event} />
-          ))}
+        {/* Carousel container */}
+        <div className="relative">
+          {/* Events Carousel */}
+          {/* Horizontal scrolling carousel with snap behavior and keyboard navigation support */}
+          <div
+            id="events-carousel"
+            ref={carouselRef}
+            className="carousel-x scrollbar-hidden focus-ring"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="MEGA events showcase carousel"
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+          >
+            {totalEvents.map((event) => (
+              // Individual event card from data
+              <EventCard key={event.slug} event={event} />
+            ))}
+          </div>
+
+          {/* Navigation arrows using CarouselArrows component */}
+          <CarouselArrows
+            onLeftClick={scrollLeft}
+            onRightClick={scrollRight}
+            controlsId="events-carousel"
+            showLeft={arrows.showLeft}
+            showRight={arrows.showRight}
+          />
         </div>
       </div>
     </section>

@@ -2,9 +2,9 @@
 
 import { memo } from 'react';
 
-import QuoteCard from '@/components/ui/cards/QuoteCard';
-import { motivationQuotes } from '@/data/motivation';
-import { horizontalCarouselKeyNav } from '@/utils/keyboard';
+import { motivationQuotes } from "@/data/motivation";
+import { CarouselArrows, QuoteCard } from "@/components/ui";
+import { useCarousel } from "@/hooks/useCarousel";
 
 /**
  * Motivation Section Component
@@ -19,13 +19,15 @@ import { horizontalCarouselKeyNav } from '@/utils/keyboard';
  * - Best Practices: Data-driven; consistent carousel pattern with other sections; subtle animations.
  */
 function MotivationSection() {
+  const { carouselRef, scrollLeft, scrollRight, handleKeyDown, arrows } =
+    useCarousel(320);
 
   return (
     // Main motivation section with vertical padding and light background
     <section
       aria-labelledby="motivation-title"
       id="motivation"
-      className="py-4 lg:py-8 bg-background"
+      className="bg-background"
     >
       {/* Centered content wrapper */}
       <div className="container">
@@ -36,23 +38,38 @@ function MotivationSection() {
         </h2>
         {/* Descriptive subtitle for inspiration and SEO */}
         <p className="section-subtitle">
-          Fuel your ambition with powerful words from visionary leaders. Start each day with purpose, resilience, and passion for innovation.
+          Fuel your ambition with powerful words from visionary leaders. Start
+          each day with purpose, resilience, and passion for innovation.
         </p>
 
-        {/* Motivation Carousel */}
-        {/* Horizontal scrolling carousel with keyboard navigation support */}
-        <div
-          className="carousel-x scrollbar-hidden focus-ring"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Daily motivational quotes carousel"
-          tabIndex={0}
-          onKeyDown={horizontalCarouselKeyNav}
-        >
-          {motivationQuotes.map((quote) => (
-            // Individual motivational quote card
-            <QuoteCard key={quote.id} {...quote} />
-          ))}
+        {/* Carousel container */}
+        <div className="relative">
+          {/* Motivation Carousel */}
+          {/* Horizontal scrolling carousel with keyboard navigation support */}
+          <div
+            id="motivation-carousel"
+            ref={carouselRef}
+            className="carousel-x scrollbar-hidden focus-ring"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Daily motivational quotes carousel"
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+          >
+            {motivationQuotes.map((quote) => (
+              // Individual motivational quote card
+              <QuoteCard key={quote.id} {...quote} />
+            ))}
+          </div>
+
+          {/* Navigation arrows using CarouselArrows component */}
+          <CarouselArrows
+            onLeftClick={scrollLeft}
+            onRightClick={scrollRight}
+            controlsId="motivation-carousel"
+            showLeft={arrows.showLeft}
+            showRight={arrows.showRight}
+          />
         </div>
       </div>
     </section>

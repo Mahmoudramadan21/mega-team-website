@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { memo, useEffect, useState } from 'react';
-import ArrowRightIcon from '@/assets/icons/arrow-right-icon.svg';
+import { ArrowRightIcon } from "@/assets/icons";
 
 const HERO_IMAGES = [
-  '/images/image-1.jpg',
-  '/images/image-2.jpg',
-  '/images/image-3.jpg',
-  '/images/image-4.jpg',
+  "/images/image-1.jpg",
+  "/images/image-2.jpg",
+  "/images/image-3.jpg",
+  "/images/image-4.jpg",
 ] as const;
 
 const IMAGE_CHANGE_INTERVAL = 4000; // ms – slightly longer for better UX
@@ -39,7 +39,7 @@ function HeroSection() {
 
   return (
     // Main hero section with vertical padding and anchor target
-    <section aria-labelledby="hero-heading" id="about" className="py-8 lg:py-16">
+    <section aria-labelledby="hero-heading" id="about">
       {/* Centered content container with Cairo font applied */}
       <div className="container font-cairo">
         {/* Responsive two-column layout (stacked on mobile, side-by-side on lg+) */}
@@ -48,21 +48,29 @@ function HeroSection() {
           {/* Text column with centered alignment on mobile and start on larger screens */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-4 max-w-full lg:max-w-[48%]">
             {/* Primary hero heading with accessible ID */}
-            <h1 id="hero-heading" className="font-bold text-3xl lg:text-4xl xl:text-5xl leading-tight">
+            <h1 id="hero-heading" className="section-title">
               About <span className="text-primary-500">MEGA Team MU</span>
             </h1>
 
             {/* Introductory paragraphs with responsive text sizing */}
-            <p className="text-base lg:text-lg xl:text-xl leading-relaxed text-[#4E4E4E]">
-              MEGA is a volunteer team passionate about Computer Science and Information Technology, founded in <span className="text-primary-500">2018</span> at the Faculty of Computers and Information, Mansoura University.
+            <p className="text-body text-[#4E4E4E]">
+              MEGA is a volunteer team passionate about Computer Science and
+              Information Technology, founded in{" "}
+              <span className="text-primary-500">2018</span> at the Faculty of
+              Computers and Information, Mansoura University.
             </p>
 
             <p className="text-base lg:text-lg xl:text-20 leading-relaxed text-[#4E4E4E]">
-              We empower tech enthusiasts by providing high-quality resources, tools, and mentorship, while working on real-world projects and organizing impactful on-campus events to build strong portfolios and practical skills.
+              We empower tech enthusiasts by providing high-quality resources,
+              tools, and mentorship, while working on real-world projects and
+              organizing impactful on-campus events to build strong portfolios
+              and practical skills.
             </p>
 
             <p className="text-base lg:text-lg xl:text-20 leading-relaxed text-[#4E4E4E]">
-              Our vision is to create a vibrant tech community across Egypt, preparing members for success in the digital world through technical excellence and personal growth.
+              Our vision is to create a vibrant tech community across Egypt,
+              preparing members for success in the digital world through
+              technical excellence and personal growth.
             </p>
 
             {/* Hashtags – treated as links for discoverability */}
@@ -82,7 +90,7 @@ function HeroSection() {
             {/* Call to Action Button */}
             {/* Primary CTA button with icon and centered text */}
             <Link
-              href="/about"
+              href="/#events"
               className="flex items-center justify-center gap-2 px-12 btn focus-ring"
               aria-label="Learn more about MEGA Team MU"
             >
@@ -132,10 +140,10 @@ function HeroSection() {
                   src={src}
                   alt="MEGA Team MU members collaborating on tech projects and participating in workshops and events"
                   fill
-                  className={`object-cover transition-opacity duration-1000 ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+                  className={`object-cover transition-opacity duration-1000 ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority={index === 0} // Only the first image loads immediately
-                  loading={index === 0 ? 'eager' : 'lazy'}
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               ))}
             </div>

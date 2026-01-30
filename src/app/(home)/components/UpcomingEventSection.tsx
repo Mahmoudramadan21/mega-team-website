@@ -4,17 +4,18 @@ import React, { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ArrowRightIcon from '@/assets/icons/arrow-right-icon.svg';
 import { upcomingEvent } from '@/data/upcoming-event';
-
-import CalendarIcon from '@/assets/icons/calender-icon.svg';
-import ClockIcon from '@/assets/icons/clock-icon.svg';
-import MapPinIcon from '@/assets/icons/map-pin-icon.svg';
-import RecordIcon from '@/assets/icons/record-icon.svg';
+import {
+  ArrowRightIcon,
+  CalendarIcon,
+  ClockIcon,
+  MapPinIcon,
+  RecordIcon,
+} from "@/assets/icons";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   calendar: CalendarIcon,
-  'map-pin': MapPinIcon,
+  "map-pin": MapPinIcon,
   clock: ClockIcon,
   record: RecordIcon,
 };
@@ -30,23 +31,15 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
  * - Best Practices: Clear structure, responsive design, meaningful links
  */
 function UpcomingEventSection() {
-  const {
-    title,
-    description,
-    state,
-    link,
-    image,
-    meta,
-    cta,
-    registration,
-  } = upcomingEvent;
-  
+  const { title, description, state, link, images, meta, cta, registration } =
+    upcomingEvent;
+
   return (
     // Main upcoming event section with dark background and vertical padding
     <section
       aria-labelledby="current-event-title"
       id="upcoming-event"
-      className="py-4 lg:py-8 bg-[#0D0D0D]"
+      className="bg-[#0D0D0D]"
     >
       {/* Centered content container */}
       <div className="container">
@@ -68,10 +61,10 @@ function UpcomingEventSection() {
           <div className="relative w-full lg:max-w-[48%] overflow-hidden rounded-2xl">
             {/* Priority-loaded event poster image with responsive cover fit */}
             <Image
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
+              src={images[0].src}
+              alt={images[0].alt}
+              width={images[0].width}
+              height={images[0].height}
               sizes="(max-width: 1024px) 100vw, 48vw"
               priority
               className="w-full h-full object-cover"
@@ -98,7 +91,7 @@ function UpcomingEventSection() {
                 className="flex items-center justify-center gap-2 px-12 btn focus-ring"
                 aria-label={cta?.ariaLabel}
               >
-                {cta?.label ?? 'Learn More'}
+                {cta?.label ?? "Learn More"}
                 <ArrowRightIcon aria-hidden="true" className="h-5 w-5 pt-1" />
               </Link>
             </div>
@@ -119,18 +112,27 @@ function UpcomingEventSection() {
                 }
 
                 // Individual meta item with icon and label/value pair
-                return(
-                  <div key={label} className="flex items-center lg:items-start gap-4">
-                    <IconComponent className="h-6 w-6 shrink-0 text-primary-500" aria-hidden="true" />
+                return (
+                  <div
+                    key={label}
+                    className="flex items-center lg:items-start gap-4"
+                  >
+                    <IconComponent
+                      className="h-6 w-6 shrink-0 text-primary-500"
+                      aria-hidden="true"
+                    />
                     <div>
-                      <h4 className="font-medium text-base text-neutral-400">{label}</h4>
-                      <p className="mt-0.5 text-base text-neutral-200">{value}</p>
+                      <h4 className="font-medium text-base text-neutral-400">
+                        {label}
+                      </h4>
+                      <p className="mt-0.5 text-base text-neutral-200">
+                        {value}
+                      </p>
                     </div>
                   </div>
-                )
-              }
-              )}
-            </div>    
+                );
+              })}
+            </div>
 
             {/* Registration Progress */}
             {registration && (
@@ -149,7 +151,7 @@ function UpcomingEventSection() {
                   aria-label={`Registration progress: ${registration.progress}% full`}
                 >
                   <div
-                    className="absolute inset-y-0 left-0 rounded-r-full bg-primary-500 transition-all duration-500"
+                    className={`absolute inset-y-0 left-0 rounded-r-full bg-primary-500 transition-all duration-500`}
                     style={{ width: `${registration.progress}%` }}
                   />
                 </div>

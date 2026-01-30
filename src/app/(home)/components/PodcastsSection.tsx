@@ -1,10 +1,9 @@
 'use client';
 
 import React, { memo } from 'react';
-import { EpisodeCard } from '@/components/ui/cards/EpisodeCard';
-import { backgroundDualEpisodes, imageLeftEpisodes, imageRightEpisodes } from '@/data/episode';
-import { horizontalCarouselKeyNav } from '@/utils/keyboard';
-
+import { backgroundDualEpisodes, imageRightEpisodes } from "@/data/episode";
+import { CarouselArrows, EpisodeCard } from "@/components/ui";
+import { useCarousel } from "@/hooks/useCarousel";
 
 /**
  * Podcasts Section Component
@@ -17,9 +16,25 @@ import { horizontalCarouselKeyNav } from '@/utils/keyboard';
  * - Best Practices: Data-driven, responsive carousels with snap scrolling, consistent spacing
  */
 function PodcastsSection() {
+  const {
+    carouselRef: refRight,
+    scrollLeft: scrollLeftRight,
+    scrollRight: scrollRightRight,
+    handleKeyDown: handleKeyDownRight,
+    arrows: arrowsRight,
+  } = useCarousel(320);
+
+  const {
+    carouselRef: refDual,
+    scrollLeft: scrollLeftDual,
+    scrollRight: scrollRightDual,
+    handleKeyDown: handleKeyDownDual,
+    arrows: arrowsDual,
+  } = useCarousel(320);
+
   return (
     // Main podcasts section with vertical padding and anchor target
-    <section aria-labelledby="podcasts-title" id="podcasts" className="py-4 lg:py-8">
+    <section aria-labelledby="podcasts-title" id="podcasts">
       {/* Centered content wrapper */}
       <div className="container">
         {/* Section Heading */}
@@ -29,52 +44,66 @@ function PodcastsSection() {
         </h2>
         {/* Descriptive subtitle for engagement and SEO */}
         <p className="section-subtitle">
-          Listen to inspiring stories, insights, and advice from tech leaders and innovators.
+          Listen to inspiring stories, insights, and advice from tech leaders
+          and innovators.
         </p>
 
-        {/* Image-Right Episodes Carousel */}
-        {/* Horizontal carousel for episodes with podcast image on the right */}
-        <div
-          className="carousel-x scrollbar-hidden focus-ring"
-          role="region"
-          aria-labelledby="podcasts-title"
-          aria-label="Image-right podcast episodes carousel"
-          tabIndex={0}
-          onKeyDown={horizontalCarouselKeyNav}
-        >
-          {imageRightEpisodes.map((episode) => (
-            <EpisodeCard key={episode.id} {...episode} />
-          ))}
+        {/* Carousel container */}
+        <div className="relative">
+          {/* Image-Right Episodes Carousel */}
+          {/* Horizontal carousel for episodes with podcast image on the right */}
+          <div
+            id="podcasts-carousel-right"
+            ref={refRight}
+            className="carousel-x scrollbar-hidden focus-ring"
+            role="region"
+            aria-labelledby="podcasts-title"
+            aria-label="Image-right podcast episodes carousel"
+            tabIndex={0}
+            onKeyDown={handleKeyDownRight}
+          >
+            {imageRightEpisodes.map((episode) => (
+              <EpisodeCard key={episode.id} {...episode} />
+            ))}
+          </div>
+
+          {/* Navigation arrows using CarouselArrows component */}
+          <CarouselArrows
+            onLeftClick={scrollLeftRight}
+            onRightClick={scrollRightRight}
+            controlsId="podcasts-carousel-right"
+            showLeft={arrowsRight.showLeft}
+            showRight={arrowsRight.showRight}
+          />
         </div>
 
-        {/* Background-Dual Episodes Carousel */}
-        {/* Horizontal carousel for episodes with dual decorative background images */}
-        <div
-          className="carousel-x scrollbar-hidden focus-ring"
-          role="region"
-          aria-labelledby="podcasts-title"
-          aria-label="Background-dual podcast episodes carousel"
-          tabIndex={0}
-          onKeyDown={horizontalCarouselKeyNav}
-        >
-          {backgroundDualEpisodes.map((episode) => (
-            <EpisodeCard key={episode.id} {...episode} />
-          ))}
-        </div>
+        {/* Carousel container */}
+        <div className="relative">
+          {/* Background-Dual Episodes Carousel */}
+          {/* Horizontal carousel for episodes with dual decorative background images */}
+          <div
+            id="podcasts-carousel-dual"
+            ref={refDual}
+            className="carousel-x scrollbar-hidden focus-ring"
+            role="region"
+            aria-labelledby="podcasts-title"
+            aria-label="Background-dual podcast episodes carousel"
+            tabIndex={0}
+            onKeyDown={handleKeyDownDual}
+          >
+            {backgroundDualEpisodes.map((episode) => (
+              <EpisodeCard key={episode.id} {...episode} />
+            ))}
+          </div>
 
-        {/* Image-Left Episodes Carousel */}
-        {/* Horizontal carousel for episodes with podcast image on the left */}
-        <div
-          className="carousel-x scrollbar-hidden focus-ring"
-          role="region"
-          aria-labelledby="podcasts-title"
-          aria-label="Image-left podcast episodes carousel"
-          tabIndex={0}
-          onKeyDown={horizontalCarouselKeyNav}
-        >
-          {imageLeftEpisodes.map((episode) => (
-            <EpisodeCard key={episode.id} {...episode} />
-          ))}
+          {/* Navigation arrows using CarouselArrows component */}
+          <CarouselArrows
+            onLeftClick={scrollLeftDual}
+            onRightClick={scrollRightDual}
+            controlsId="podcasts-carousel-dual"
+            showLeft={arrowsDual.showLeft}
+            showRight={arrowsDual.showRight}
+          />
         </div>
       </div>
     </section>
