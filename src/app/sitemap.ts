@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: baseUrl,
       lastModified: now,
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 1.0,
     },
     {
@@ -25,10 +25,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: upcomingEvent.dateTime
         ? new Date(upcomingEvent.dateTime)
         : now,
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.9,
-      ...(upcomingEvent.image?.src && {
-        images: [`${baseUrl}${upcomingEvent.image.src}`],
+      ...(upcomingEvent.images[0]?.src && {
+        images: [`${baseUrl}${upcomingEvent.images[0].src}`],
       }),
     },
   ];
@@ -38,13 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
    */
   const eventPages: MetadataRoute.Sitemap = totalEvents.map((event) => ({
     url: `${baseUrl}/events/${event.slug}`,
-    lastModified: event.dateTime
-      ? new Date(event.dateTime)
-      : now,
-    changeFrequency: 'yearly',
+    lastModified: event.dateTime ? new Date(event.dateTime) : now,
+    changeFrequency: "yearly",
     priority: 0.7,
-    ...(event.image?.src && {
-      images: [`${baseUrl}${event.image.src}`],
+    ...(event.images[0]?.src && {
+      images: [`${baseUrl}${event.images[0].src}`],
     }),
   }));
 
