@@ -14,8 +14,8 @@ import { MotivationQuote } from '@/types/motivation';
  * - Fully accessible: aria-labelledby linking to author, decorative icon hidden from screen readers
  * - Responsive layout with carousel snap behavior
  * - Subtle interactive effects on hover/focus (shadow and icon scale)
- * - All Tailwind classes ordered according to official guidelines:
- *   Layout → Box Model → Typography → Visual → Transitions
+ * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
+
  */
 const QuoteCard = ({ id, text, author, icon: Icon, gradient, authorColor }: MotivationQuote) => {
   return (

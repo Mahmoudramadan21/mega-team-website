@@ -3,15 +3,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
+import { CalendarIcon, ArrowRightIcon } from "@/assets/icons";
+import { EventData } from "@/types/event";
 
-import ArrowRightIcon from '@/assets/icons/arrow-right-icon.svg';
-import CalendarIcon from '@/assets/icons/calender-icon.svg';
-import { EventData } from '@/types/event';
-
-const statusColors: Record<EventData['state'], string> = {
-  open: 'bg-[#34C759] text-neutral-50',
-  soon: 'bg-[#FF8D28] text-neutral-900',
-  closed: 'bg-primary-500 text-neutral-50',
+const statusColors: Record<EventData["state"], string> = {
+  open: "bg-[#34C759] text-neutral-50",
+  soon: "bg-[#FF8D28] text-neutral-900",
+  closed: "bg-primary-500 text-neutral-50",
 };
 
 /**
@@ -26,22 +24,14 @@ const statusColors: Record<EventData['state'], string> = {
  * - Responsive design with hover expansions and carousel snap behavior
  * - Smooth hover/focus transitions including image scale and button padding
  * - Accessible with ARIA labels, focus-ring, and hidden decorative icons
- * - All Tailwind classes ordered according to official guidelines:
- *   Layout → Box Model → Typography → Visual → Transitions
+ * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
+
  */
 const EventCard = ({ event }: { event: EventData }) => {
-  const {
-    slug,
-    title,
-    description,
-    image,
-    meta,
-    state,
-    link,
-    dateTime,
-  } = event;
+  const { slug, title, description, images, meta, state, link, dateTime } =
+    event;
 
-  const dateMeta = meta.find((item) => item.label === 'Date');
+  const dateMeta = meta.find((item) => item.label === "Date");
 
   return (
     <article
@@ -50,7 +40,7 @@ const EventCard = ({ event }: { event: EventData }) => {
       aria-labelledby={`event-${slug}-title`}
       tabIndex={0}
       className="relative flex flex-col justify-between items-center lg:items-start gap-4
-        min-w-full md:min-w-94 hover:md:min-w-98 min-h-144
+        min-w-full md:min-w-94 hover:md:min-w-98
         rounded-2xl overflow-hidden select-none bg-neutral-200 hover:bg-neutral-300 card-container
         snap-center lg:snap-start focus-ring transition-all duration-300 group
       "
@@ -58,8 +48,8 @@ const EventCard = ({ event }: { event: EventData }) => {
       {/* Event Image Container */}
       <div className="relative w-full h-48 lg:h-56 overflow-hidden rounded-xl">
         <Image
-          src={image.src}
-          alt={image.alt}
+          src={images[0].src}
+          alt={images[0].alt}
           fill
           sizes="(max-width: 1024px) 90vw, 392px"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -70,13 +60,13 @@ const EventCard = ({ event }: { event: EventData }) => {
       {/* Event Title */}
       <h3
         id={`event-${slug}-title`}
-        className="font-bold text-xl md:text-2xl text-primary-500 text-center lg:text-left"
+        className="heading-card text-primary-500 md:min-h-12 text-center lg:text-left"
       >
         {title}
       </h3>
 
       {/* Event Description */}
-      <p className="leading-relaxed line-clamp-4 max-w-77.5 text-neutral-900 text-center lg:text-left">
+      <p className="text-body text-neutral-900 line-clamp-4 max-w-77.5 text-center lg:text-left">
         {description}
       </p>
 
