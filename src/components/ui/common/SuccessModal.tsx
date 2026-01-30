@@ -1,8 +1,7 @@
 'use client';
 
 import React, { memo, useEffect } from 'react';
-import Image from 'next/image';
-import { EventData } from '@/types/event';
+import Image from "next/image";
 
 /**
  * SuccessModal Component
@@ -23,25 +22,24 @@ import { EventData } from '@/types/event';
  */
 
 interface SuccessModalProps {
-  event: EventData;
   isOpen: boolean;
   onClose: () => void;
 }
 
-function SuccessModal({ event, isOpen, onClose }: SuccessModalProps) {
+function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
 
-    document.addEventListener('keydown', handleEsc);
-    document.body.style.overflow = 'hidden';
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.removeEventListener('keydown', handleEsc);
-      document.body.style.overflow = '';
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
     };
   }, [isOpen, onClose]);
 
@@ -84,7 +82,8 @@ function SuccessModal({ event, isOpen, onClose }: SuccessModalProps) {
 
         {/* Confirmation message with event-specific details */}
         <p className="mb-8 text-neutral-600">
-          Thank you for registering for <strong>{event.title}</strong>.<br />
+          Thank you for registering.
+          <br />
           We&apos;ve received your application and will be in touch soon.
         </p>
 
