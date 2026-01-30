@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { ApplicationFormData } from '@/utils/validation/application.schema';
+import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { ApplicationFormData } from "@/utils/validation/application.schema";
+import { memo } from "react";
 
 interface SkillRatingsFieldsProps {
   register: UseFormRegister<ApplicationFormData>;
@@ -21,7 +22,7 @@ interface SkillRatingsFieldsProps {
  * - Bilingual labels for better inclusivity
  * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
  */
-export default function SkillRatingsFields({ register, errors }: SkillRatingsFieldsProps) {
+function SkillRatingsFields({ register, errors }: SkillRatingsFieldsProps) {
   return (
     // Main container – full width on all screens
     <div className="md:col-span-2">
@@ -49,10 +50,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
           </label>
           <select
             id="commitmentOrganization"
-            {...register('commitmentOrganization')}
+            {...register("commitmentOrganization")}
             className={`
               form-control focus-outline-primary
-              ${errors.commitmentOrganization ? 'border-primary-400' : ''}
+              ${errors.commitmentOrganization ? "border-primary-400" : ""}
             `}
           >
             <option value="">Select</option>
@@ -79,10 +80,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
           </label>
           <select
             id="acceptanceFeedback"
-            {...register('acceptanceFeedback')}
+            {...register("acceptanceFeedback")}
             className={`
               form-control focus-outline-primary
-              ${errors.acceptanceFeedback ? 'border-primary-400' : ''}
+              ${errors.acceptanceFeedback ? "border-primary-400" : ""}
             `}
           >
             <option value="">Select</option>
@@ -93,7 +94,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
             <option value="5">5 – Excellent</option>
           </select>
           {errors.acceptanceFeedback && (
-            <p id="acceptanceFeedback-error" className="mt-1 text-sm text-primary-500">
+            <p
+              id="acceptanceFeedback-error"
+              className="mt-1 text-sm text-primary-500"
+            >
               {errors.acceptanceFeedback.message}
             </p>
           )}
@@ -106,10 +110,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
           </label>
           <select
             id="nervousnessShortTemper"
-            {...register('nervousnessShortTemper')}
+            {...register("nervousnessShortTemper")}
             className={`
               form-control focus-outline-primary
-              ${errors.nervousnessShortTemper ? 'border-primary-400' : ''}
+              ${errors.nervousnessShortTemper ? "border-primary-400" : ""}
             `}
           >
             <option value="">Select</option>
@@ -120,7 +124,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
             <option value="5">5 – Excellent</option>
           </select>
           {errors.nervousnessShortTemper && (
-            <p id="nervousnessShortTemper-error" className="mt-1 text-sm text-primary-500">
+            <p
+              id="nervousnessShortTemper-error"
+              className="mt-1 text-sm text-primary-500"
+            >
               {errors.nervousnessShortTemper.message}
             </p>
           )}
@@ -133,10 +140,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
           </label>
           <select
             id="followUpContinuity"
-            {...register('followUpContinuity')}
+            {...register("followUpContinuity")}
             className={`
               form-control focus-outline-primary
-              ${errors.followUpContinuity ? 'border-primary-400' : ''}
+              ${errors.followUpContinuity ? "border-primary-400" : ""}
             `}
           >
             <option value="">Select</option>
@@ -147,7 +154,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
             <option value="5">5 – Excellent</option>
           </select>
           {errors.followUpContinuity && (
-            <p id="followUpContinuity-error" className="mt-1 text-sm text-primary-500">
+            <p
+              id="followUpContinuity-error"
+              className="mt-1 text-sm text-primary-500"
+            >
               {errors.followUpContinuity.message}
             </p>
           )}
@@ -160,10 +170,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
           </label>
           <select
             id="emotionalStability"
-            {...register('emotionalStability')}
+            {...register("emotionalStability")}
             className={`
               form-control focus-outline-primary
-              ${errors.emotionalStability ? 'border-primary-400' : ''}
+              ${errors.emotionalStability ? "border-primary-400" : ""}
             `}
           >
             <option value="">Select</option>
@@ -174,7 +184,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
             <option value="5">5 – Excellent</option>
           </select>
           {errors.emotionalStability && (
-            <p id="emotionalStability-error" className="mt-1 text-sm text-primary-500">
+            <p
+              id="emotionalStability-error"
+              className="mt-1 text-sm text-primary-500"
+            >
               {errors.emotionalStability.message}
             </p>
           )}
@@ -187,10 +200,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
           </label>
           <select
             id="communication"
-            {...register('communication')}
+            {...register("communication")}
             className={`
               form-control focus-outline-primary
-              ${errors.communication ? 'border-primary-400' : ''}
+              ${errors.communication ? "border-primary-400" : ""}
             `}
           >
             <option value="">Select</option>
@@ -201,7 +214,10 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
             <option value="5">5 – Excellent</option>
           </select>
           {errors.communication && (
-            <p id="communication-error" className="mt-1 text-sm text-primary-500">
+            <p
+              id="communication-error"
+              className="mt-1 text-sm text-primary-500"
+            >
               {errors.communication.message}
             </p>
           )}
@@ -210,3 +226,5 @@ export default function SkillRatingsFields({ register, errors }: SkillRatingsFie
     </div>
   );
 }
+
+export default SkillRatingsFields;

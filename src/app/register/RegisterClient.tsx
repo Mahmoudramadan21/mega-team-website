@@ -12,18 +12,45 @@ import Script from 'next/script';
 // Application static data (can be moved to data file later)
 // ────────────────────────────────────────────────
 const applicationInfo = {
-  title: 'MEGA Team Application 2026',
-  deadline: '2026-03-31T23:59:59Z',
-  description: `Join one of the most active student tech teams at Mansoura University.\n\nWhat we offer:\n• Real-world project experience\n• Mentorship from seniors & alumni\n• Workshops & hackathons\n• Strong community & networking\n\nWe are looking for passionate students in frontend, backend, mobile, UI/UX, AI/ML, and more.`,
+  title: "MEGA Team Application 2026",
+  deadline: "2026-03-31T23:59:59Z",
+  description: `MEGA Team
+  Empowering Tech Minds Shaping Futures
+
+  Join MEGA Team and gain real experience working on impactful projects and events inside the university.
+
+  What You Will Do
+  • Learn and grow with hands-on projects
+  • Participate in MEGast Podcast Season 3 and main events
+  • Work in technical and non-technical circles
+
+  Technical Circles
+  • CS
+  • Frontend
+  • Backend
+  • Flutter
+  • Data Science
+  • Business Analysis
+  • UI/UX Design
+
+  Non-Technical Circles
+  • Event Operations
+  • HR
+  • R&D
+  • Media
+  • PR and Fundraising
+  • Project Management
+
+  Apply Now and Start Your Journey with MEGA Team`,
   images: [
     {
-      src: '/images/mega-team-application-hero.jpg',
-      alt: 'MEGA Team – Join our community',
+      src: "/images/mega-team-application-hero.jpg",
+      alt: "MEGA Team – Join our community",
       width: 1280,
       height: 720,
     },
   ],
-  state: 'open' as 'open' | 'closed',
+  state: "open" as "open" | "closed",
 };
 
 export default function RegisterClient() {

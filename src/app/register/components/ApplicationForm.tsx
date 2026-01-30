@@ -49,7 +49,8 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
       technicalCircle: undefined,
       nonTechnicalCircle: undefined,
     },
-    mode: 'onChange',
+    shouldUnregister: true,
+    mode: "onChange",
   });
 
   const {
@@ -61,12 +62,12 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
   } = form;
 
   // Watch only fields needed for conditional rendering
-  const selectedTrack           = watch('track');
-  const selectedTechCircle      = watch('technicalCircle');
-  const selectedNonTechCircle   = watch('nonTechnicalCircle');
+  const selectedTrack = watch("track");
+  const selectedTechCircle = watch("technicalCircle");
+  const selectedNonTechCircle = watch("nonTechnicalCircle");
 
   const GOOGLE_SCRIPT_URL =
-    'https://script.google.com/macros/s/AKfycbxoR1AgbNuMWMYn0wm424K-Pt8NW82yW-ESYzoax09Bz6B8er1tmL2cNmDLKP_ZJr5E/exec';
+    "https://script.google.com/macros/s/AKfycbxFVOEK_FoLTEwKxo28_QZ4tODNhO7YivkcSeS5zFy_iALJ-cS5_OIhfbPgzjiKZPzJ/exec";
 
   const onSubmit: SubmitHandler<ApplicationFormData> = async (data) => {
     setSubmitError(null);
@@ -79,9 +80,9 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
 
     try {
       await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(payload),
       });
 
@@ -89,8 +90,8 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
       setSubmitSuccess(true);
       onSuccess?.();
     } catch (err) {
-      console.error('Submission failed:', err);
-      setSubmitError('Failed to submit application. Please try again later.');
+      console.error("Submission failed:", err);
+      setSubmitError("Failed to submit application. Please try again later.");
     }
   };
 
@@ -136,6 +137,19 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
         </div>
       )}
 
+      {Object.keys(errors).length > 0 && (
+        <div className="mb-8 p-6 rounded-2xl bg-red-50 border border-red-200 text-red-800">
+          <p className="font-bold mb-3">فيه أخطاء في الفورم، راجع الحقول دي:</p>
+          <ul className="list-disc pr-6 space-y-1">
+            {Object.entries(errors).map(([key, err]) => (
+              <li key={key}>
+                {key}: {err?.message || "خطأ غير معروف"}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Main form grid */}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -158,29 +172,31 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
         {/* 4. Track selection – controls conditional rendering */}
         <div className="md:col-span-2 space-y-1.5">
           <label htmlFor="track" className="form-label">
-            Which track are you applying for? / أي مسار تتقدم له؟{' '}
+            Which track are you applying for? / أي مسار تتقدم له؟{" "}
             <span className="text-primary-500">*</span>
           </label>
           <select
             id="track"
-            {...register('track')}
+            {...register("track")}
             className={`
               form-control focus-outline-primary
-              ${errors.track ? 'border-primary-400' : ''}
+              ${errors.track ? "border-primary-400" : ""}
             `}
           >
             <option value="">Select track / اختر المسار</option>
             <option value="Technical Only">Technical Only</option>
             <option value="Non-Technical Only">Non-Technical Only</option>
-            <option value="Both Non Technical & Technical">Both Non Technical & Technical</option>
+            <option value="Both">Both Non Technical & Technical</option>
           </select>
           {errors.track && (
-            <p className="text-sm text-primary-500 mt-1">{errors.track.message}</p>
+            <p className="text-sm text-primary-500 mt-1">
+              {errors.track.message}
+            </p>
           )}
         </div>
 
         {/* 5. Technical circle & questions (conditional) */}
-        {(selectedTrack === 'Technical Only' || selectedTrack === 'Both Non Technical & Technical') && (
+        {(selectedTrack === "Technical Only" || selectedTrack === "Both") && (
           <TechnicalCircleQuestions
             register={register}
             errors={errors}
@@ -189,7 +205,8 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
         )}
 
         {/* 6. Non-Technical circle & questions (conditional) */}
-        {(selectedTrack === 'Non-Technical Only' || selectedTrack === 'Both Non Technical & Technical') && (
+        {(selectedTrack === "Non-Technical Only" ||
+          selectedTrack === "Both") && (
           <NonTechnicalCircleQuestions
             register={register}
             errors={errors}
@@ -201,7 +218,7 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
         <div className="md:col-span-2 mt-10 text-center">
           <button
             type="submit"
-            // disabled={isSubmitting}
+            disabled={isSubmitting}
             className="
               flex items-center justify-center gap-2 md:gap-4
               py-5 w-full text-sm md:text-base font-semibold
@@ -212,7 +229,7 @@ function ApplicationForm({ onSuccess }: ApplicationFormProps) {
             "
           >
             <SubmitIcon className="h-6 w-6" aria-hidden="true" />
-            {isSubmitting ? 'Submitting...' : 'Submit Application'}
+            {isSubmitting ? "Submitting..." : "Submit Application"}
           </button>
         </div>
       </form>

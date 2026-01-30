@@ -66,7 +66,9 @@ function RegistrationHero({
     <>
       {/* Back Link & Page Title */}
       {/* Header row with back link, centered title, and balanced spacing */}
-      <div className={`flex items-center justify-between gap-8 mb-12 text-primary-500 ${className}`}>
+      <div
+        className={`flex items-center justify-between gap-8 mb-12 text-primary-500 ${className}`}
+      >
         {showBack && (
           <Link
             href={backHref}
@@ -78,9 +80,7 @@ function RegistrationHero({
         )}
 
         {/* Main page title with responsive sizing and dynamic text based on mode */}
-        <h1 className="grow text-center heading-primary">
-          {title}
-        </h1>
+        <h1 className="grow text-center heading-primary">{title}</h1>
 
         {/* Spacer for balance when back button exists */}
         {showBack && <div className="w-8" aria-hidden="true" />}
@@ -88,14 +88,13 @@ function RegistrationHero({
 
       {/* Hero Image with Optional Status Badge */}
       {/* Hero image container with rounded corners and prominent shadow */}
-      <div className="relative mb-6 overflow-hidden rounded-2xl shadow-2xl">
+      <div className="relative w-full h-120 mb-6 overflow-hidden rounded-2xl shadow-2xl">
         <Image
           src={image.src}
           alt={image.alt}
-          width={image.width}
-          height={image.height ?? 224}
+          fill
           priority
-          className={`w-full ${imageMaxHeight} object-cover object-center`}
+          className="w-full h-full object-cover object-center"
         />
 
         {badge && (

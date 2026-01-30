@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { ApplicationFormData } from '@/utils/validation/application.schema';
+import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { ApplicationFormData } from "@/utils/validation/application.schema";
+import { memo } from "react";
 
 interface BasicInfoFieldsProps {
   register: UseFormRegister<ApplicationFormData>;
@@ -21,7 +22,7 @@ interface BasicInfoFieldsProps {
  * - Responsive spacing and layout
  * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
  */
-export default function BasicInfoFields({ register, errors }: BasicInfoFieldsProps) {
+function BasicInfoFields({ register, errors }: BasicInfoFieldsProps) {
   return (
     <>
       {/* Full Name */}
@@ -32,11 +33,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="fullName"
           type="text"
-          {...register('fullName')}
+          {...register("fullName")}
           placeholder="Enter your full name"
           className={`
             form-control focus-outline-primary
-            ${errors.fullName ? 'border-primary-400' : ''}
+            ${errors.fullName ? "border-primary-400" : ""}
           `}
         />
         {errors.fullName && (
@@ -54,11 +55,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="email"
           type="email"
-          {...register('email')}
+          {...register("email")}
           placeholder="your@email.com"
           className={`
             form-control focus-outline-primary
-            ${errors.email ? 'border-primary-400' : ''}
+            ${errors.email ? "border-primary-400" : ""}
           `}
         />
         {errors.email && (
@@ -76,11 +77,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="phoneNumber"
           type="tel"
-          {...register('phoneNumber')}
+          {...register("phoneNumber")}
           placeholder="+20 123 456 7890"
           className={`
             form-control focus-outline-primary
-            ${errors.phoneNumber ? 'border-primary-400' : ''}
+            ${errors.phoneNumber ? "border-primary-400" : ""}
           `}
         />
         {errors.phoneNumber && (
@@ -98,11 +99,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="facebookLink"
           type="url"
-          {...register('facebookLink')}
+          {...register("facebookLink")}
           placeholder="https://facebook.com/yourprofile"
           className={`
             form-control focus-outline-primary
-            ${errors.facebookLink ? 'border-primary-400' : ''}
+            ${errors.facebookLink ? "border-primary-400" : ""}
           `}
         />
         {errors.facebookLink && (
@@ -120,15 +121,18 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="discordUsername"
           type="text"
-          {...register('discordUsername')}
+          {...register("discordUsername")}
           placeholder="your#discordusername"
           className={`
             form-control focus-outline-primary
-            ${errors.discordUsername ? 'border-primary-400' : ''}
+            ${errors.discordUsername ? "border-primary-400" : ""}
           `}
         />
         {errors.discordUsername && (
-          <p id="discordUsername-error" className="mt-1 text-sm text-primary-500">
+          <p
+            id="discordUsername-error"
+            className="mt-1 text-sm text-primary-500"
+          >
             {errors.discordUsername.message}
           </p>
         )}
@@ -142,11 +146,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="linkedInLink"
           type="url"
-          {...register('linkedInLink')}
+          {...register("linkedInLink")}
           placeholder="https://linkedin.com/in/yourprofile"
           className={`
             form-control focus-outline-primary
-            ${errors.linkedInLink ? 'border-primary-400' : ''}
+            ${errors.linkedInLink ? "border-primary-400" : ""}
           `}
         />
         {errors.linkedInLink && (
@@ -164,11 +168,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="gitHubLink"
           type="url"
-          {...register('gitHubLink')}
+          {...register("gitHubLink")}
           placeholder="https://github.com/yourusername"
           className={`
             form-control focus-outline-primary
-            ${errors.gitHubLink ? 'border-primary-400' : ''}
+            ${errors.gitHubLink ? "border-primary-400" : ""}
           `}
         />
         {errors.gitHubLink && (
@@ -186,11 +190,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="university"
           type="text"
-          {...register('university')}
+          {...register("university")}
           placeholder="Enter your university"
           className={`
             form-control focus-outline-primary
-            ${errors.university ? 'border-primary-400' : ''}
+            ${errors.university ? "border-primary-400" : ""}
           `}
         />
         {errors.university && (
@@ -208,11 +212,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="college"
           type="text"
-          {...register('college')}
+          {...register("college")}
           placeholder="Enter your college"
           className={`
             form-control focus-outline-primary
-            ${errors.college ? 'border-primary-400' : ''}
+            ${errors.college ? "border-primary-400" : ""}
           `}
         />
         {errors.college && (
@@ -229,14 +233,16 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         </label>
         <select
           id="academicYear"
-          {...register('academicYear')}
+          {...register("academicYear")}
           className={`
             form-control focus-outline-primary
-            ${errors.academicYear ? 'border-primary-400' : ''}
+            ${errors.academicYear ? "border-primary-400" : ""}
           `}
         >
           <option value="">Select year</option>
-          <option value="LVL 000 (for Engineering Students)">LVL 000 (for Engineering Students)</option>
+          <option value="LVL 000 (for Engineering Students)">
+            LVL 000 (for Engineering Students)
+          </option>
           <option value="First Year">First Year</option>
           <option value="Second Year">Second Year</option>
           <option value="Third Year">Third Year</option>
@@ -257,11 +263,11 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
         <input
           id="location"
           type="text"
-          {...register('location')}
+          {...register("location")}
           placeholder="Enter your location"
           className={`
             form-control focus-outline-primary
-            ${errors.location ? 'border-primary-400' : ''}
+            ${errors.location ? "border-primary-400" : ""}
           `}
         />
         {errors.location && (
@@ -273,3 +279,5 @@ export default function BasicInfoFields({ register, errors }: BasicInfoFieldsPro
     </>
   );
 }
+
+export default BasicInfoFields;
