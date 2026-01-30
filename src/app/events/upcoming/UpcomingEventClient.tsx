@@ -161,7 +161,6 @@ export default function UpcomingEventClient() {
 
       {/* Success confirmation modal after form submission */}
       <SuccessModal
-        event={upcomingEvent}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

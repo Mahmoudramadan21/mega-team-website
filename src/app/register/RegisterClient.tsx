@@ -42,20 +42,20 @@ export default function RegisterClient() {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Event',
+            "@context": "https://schema.org",
+            "@type": "Event",
             name: applicationInfo.title,
-            description: applicationInfo.description.split('\n\n')[0],
-            startDate: '2026-02-01',
+            description: applicationInfo.description.split("\n\n")[0],
+            startDate: "2026-02-01",
             endDate: applicationInfo.deadline,
             eventStatus: isApplicationClosed
-              ? 'https://schema.org/EventCancelled'
-              : 'https://schema.org/EventScheduled',
-            eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+              ? "https://schema.org/EventCancelled"
+              : "https://schema.org/EventScheduled",
+            eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
             organizer: {
-              '@type': 'Organization',
-              name: 'MEGA Team Mansoura University',
-              url: 'https://megateam.vercel.app',
+              "@type": "Organization",
+              name: "MEGA Team Mansoura University",
+              url: "https://megateam.vercel.app",
             },
             image: `https://megateam.vercel.app${applicationInfo.images[0].src}`,
           }),
@@ -80,7 +80,7 @@ export default function RegisterClient() {
             <RegistrationHero
               title={`Register for ${applicationInfo.title}`}
               image={applicationInfo.images[0]}
-              badge={applicationInfo.state === 'open' ? 'Open' : undefined}
+              badge={applicationInfo.state === "open" ? "Open" : undefined}
               badgeColor="#10B981"
             />
 
@@ -97,12 +97,10 @@ export default function RegisterClient() {
       )}
 
       {/* Success confirmation modal */}
-      {/* <SuccessModal
+      <SuccessModal
         isOpen={isSuccessModalOpen}
         onClose={() => setIsSuccessModalOpen(false)}
-        title="Application Submitted!"
-        message="Thank you for applying to MEGA Team. We will review your application and get back to you within a few weeks."
-      /> */}
+      />
     </>
   );
 }
