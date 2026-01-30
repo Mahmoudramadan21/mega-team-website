@@ -12,6 +12,10 @@ body {
   /*color: var(--color-neutral-900); */
 }
 
+section {
+  @apply py-4 lg:py-8;
+}
+
 header {
   font-family: 'Cairo', sans-serif;
 }
@@ -123,6 +127,16 @@ header {
   /* =========================
      Headings
   ========================= */
+  .heading-primary {
+    @apply font-bold leading-tight text-2xl;
+    
+    /* modern browsers */
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+  .heading-card {
+    @apply font-bold leading-snug text-lg; /* fallback */
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  }
   .heading-1 {
     @apply font-bold text-[56px] leading-[120%];
   }
@@ -139,11 +153,16 @@ header {
      Section Heading
   ========================= */
   .section-title {
-    @apply text-2xl lg:text-3xl xl:text-[40px] text-primary-500 font-bold text-center;
+    @apply font-bold leading-tight text-2xl text-primary-500 text-center;
+    
+    /* modern browsers */
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
   }
 
   .section-subtitle {
-    @apply mt-2 mb-6 max-w-185 mx-auto  text-neutral-500 md:text-base lg:text-lg text-center leading-relaxed;
+    @apply mt-2 mb-6 max-w-185 mx-auto  text-neutral-500 leading-relaxed text-base text-center;
+    
+    font-size: clamp(1rem, 1.2vw, 1.125rem);;
   }
 
   /* =========================
@@ -160,6 +179,19 @@ header {
   /* =========================
      Body / Paragraphs
   ========================= */
+  .text-body {
+    @apply 
+      leading-relaxed
+      text-base; /* fallback */
+    
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+  }
+
+  .text-body-lg {
+    @apply leading-relaxed text-lg; /* fallback */
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  }
+  
   .body-large {
     @apply font-semibold text-[24px] leading-[120%];
   }
@@ -208,7 +240,7 @@ header {
   .form-control {
     @apply
       w-full
-      px-5 py-4
+      px-5 py-3 md:py-4
       rounded-lg
       border border-neutral-300
       outline-0
