@@ -1,10 +1,20 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import { totalEvents } from '@/data/event';
+// app/events/[slug]/page.tsx
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { totalEvents } from "@/data/event";
 
-import EventHero from '@/components/ui/events/EventHero';
-import EventDetails from '@/components/ui/events/EventDetails';
-import Script from 'next/script';
+import {
+  EventHeroWithCountdownSection,
+  EventIntroBannerSection,
+  EventStatsRibbon,
+  EventSessionsSection,
+  EventReviewsSection,
+  EventCTASection,
+} from "./components";
+
+import { SponsorsMarquee } from "@/app/(home)/components";
+
+import Script from "next/script";
 
 interface EventPageProps {
   params: Promise<{
@@ -12,85 +22,71 @@ interface EventPageProps {
   }>;
 }
 
-/**
- * Generate dynamic metadata for each past event detail page
- * Inherits from root layout (title template "%s | MEGA", metadataBase, etc.)
- */
-export async function generateMetadata(
-  { params }: EventPageProps,
-): Promise<Metadata> {
+// =======================
+// Dynamic Metadata per Event
+// =======================
+export async function generateMetadata({
+  params,
+}: EventPageProps): Promise<Metadata> {
   const { slug } = await params;
   const event = totalEvents.find((e) => e.slug === slug);
 
-  if (!event) {
-    return { title: 'Event Not Found' };
-  }
+  if (!event) return { title: "Event Not Found" };
 
-  // Extract first paragraph for concise, attractive meta description
-  const firstParagraph = event.description.split('\n\n')[0].slice(0, 200) + '...';
-
-  const pageTitle = `${event.title} Event`;
-  const pageDescription = `${firstParagraph} Discover this past event by MEGA Team at Mansoura University focusing on tech skills and innovation.`;
+  const firstParagraph =
+    event.description.split("\n\n")[0].slice(0, 200) + "...";
 
   return {
-    title: pageTitle,
-    description: pageDescription,
-
+    title: `${event.title ?? "Event Not Found"} | MEGA Event`,
+    description: `${firstParagraph} Discover this past event by MEGA Team at Mansoura University focusing on tech skills and innovation.`,
     keywords: [
       `${event.title} MEGA`,
       `${event.title} Mansoura University`,
-      'MEGA tech event',
-      'MEGA Mansoura',
-      'student tech workshop Mansoura',
+      "MEGA tech event",
+      "MEGA Mansoura",
+      "student tech workshop Mansoura",
       ...event.meta.map((m) => m.value),
     ],
-
-    robots: {
-      index: true,
-      follow: true,
-    },
-
-    alternates: {
-      canonical: `https://megateam.vercel.app/events/${slug}`,
-    },
-
+    robots: { index: true, follow: true },
+    alternates: { canonical: `https://megateam.vercel.app/events/${slug}` },
     openGraph: {
-      title: pageTitle,
-      description: pageDescription,
+      title: `${event.title} | MEGA Event`,
+      description: firstParagraph,
       url: `/events/${slug}`,
-      images: [
-        {
-          url: event.image.src,
-          width: event.image.width,
-          height: event.image.height,
-          alt: event.image.alt,
-        },
-      ],
-      type: 'article',
-      locale: 'en_US',
+      images: event.images.map((img) => ({
+        url: `https://megateam.vercel.app${img.src}`,
+        width: img.width,
+        height: img.height,
+        alt: img.alt,
+      })),
+      type: "article",
+      locale: "en_US",
     },
-
     twitter: {
-      card: 'summary_large_image',
-      title: pageTitle,
-      description: pageDescription,
-      images: [event.image.src],
+      card: "summary_large_image",
+      title: `${event.title} | MEGA Event`,
+      description: firstParagraph,
+      images: event.images.map(
+        (img) => `https://megateam.vercel.app${img.src}`,
+      ),
     },
   };
 }
 
+// =======================
+// Event Detail Page
+// =======================
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
+  const event = totalEvents.find((e) => e.slug === slug);
+  if (!event) notFound();
 
-  const event = totalEvents.find((event) => event.slug === slug);
-
-  if (!event) {
-    notFound();
-  }
+  const now = new Date();
+  const isUpcoming = event.dateTime && new Date(event.dateTime) > now;
 
   return (
     <>
-      {/* Structured data for the past event (Event schema.org markup) */}
+      {/* Structured data for SEO */}
       <Script
         id={`event-schema-${event.slug}`}
         type="application/ld+json"
@@ -100,54 +96,103 @@ export default async function EventPage({ params }: EventPageProps) {
             "@context": "https://schema.org",
             "@type": "Event",
             name: event.title,
-            description: event.description.split('\n\n')[0].slice(0, 300) + '...',
-            startDate: event.dateTime ? new Date(event.dateTime).toISOString() : undefined,
-            eventStatus: "https://schema.org/EventCancelled", // Adjust as needed; past events are often treated as completed by search engines
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            image: event.image.src ? `https://megateam.vercel.app/${event.image.src}` : undefined,
+            description:
+              event.description.split("\n\n")[0].slice(0, 300) + "...",
+            startDate: event.dateTime
+              ? new Date(event.dateTime).toISOString()
+              : undefined,
+            eventStatus: isUpcoming
+              ? "https://schema.org/EventScheduled"
+              : "https://schema.org/EventCompleted",
+            eventAttendanceMode:
+              "https://schema.org/OfflineEventAttendanceMode",
+            image: event.images[0]?.src
+              ? `https://megateam.vercel.app${event.images[0].src}`
+              : undefined,
             organizer: {
               "@type": "Organization",
               name: "MEGA Team Mansoura University",
-              url: "https://megateam.vercel.app"
+              url: "https://megateam.vercel.app",
             },
             location: {
               "@type": "Place",
-              name: "Mansoura University",
+              name: event.location,
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Mansoura",
-                addressCountry: "EG"
-              }
+                addressCountry: "EG",
+              },
             },
             offers: {
               "@type": "Offer",
               name: "Free Registration",
               price: "0",
               priceCurrency: "EGP",
-              url: `https://megateam.vercel.app/events/${event.slug}`
-            }
-          })
+              url: `https://megateam.vercel.app/events/${event.slug}`,
+            },
+          }),
         }}
       />
 
-      {/* Main content area with vertical padding */}
-      <div className="container py-10 lg:py-16">
-        {/* Hero section in details mode for past events */}
-        <EventHero event={event} mode="details" />
-        
-        {/* Detailed event information (description, meta, etc.) */}
-        <EventDetails event={event} />
-      </div>
+      {isUpcoming ? (
+        <>
+          {/* =======================
+              UPCOMING EVENT
+              ======================= */}
+          <EventHeroWithCountdownSection event={event} />
+
+          <EventStatsRibbon event={event} />
+
+          <EventSessionsSection event={event} />
+
+          <EventIntroBannerSection event={event} autoRotateIntervalMs={4500} />
+
+          <EventCTASection
+            title="Ready To Book Your Seat?"
+            description="Fill the form now to book your seat to get more knowledge."
+            buttonText="Join Us Now"
+            buttonHref="/register"
+            image={{
+              src: event.images[0]?.src || "/default-event-cta.jpg",
+              alt: "Student pointing to registration form",
+            }}
+          />
+
+          <SponsorsMarquee
+            sponsors={event.sponsors}
+            showCTA={isUpcoming}
+            showHeading={true}
+            title={`${event.title} Sponsors`}
+          />
+        </>
+      ) : (
+        <>
+          {/* =======================
+              PAST EVENT
+              ======================= */}
+          <EventIntroBannerSection event={event} autoRotateIntervalMs={4500} />
+
+          <EventStatsRibbon event={event} />
+
+          <EventSessionsSection event={event} />
+
+          <EventReviewsSection event={event} />
+
+          <SponsorsMarquee
+            sponsors={event.sponsors}
+            showCTA={true}
+            showHeading={true}
+            title={`${event.title} Sponsors`}
+          />
+        </>
+      )}
     </>
   );
 }
 
-/**
- * Pre-render all past event detail pages at build time (SSG)
- * Benefits: Lightning-fast load times, excellent SEO indexing, and high Lighthouse scores
- */
+// =======================
+// Pre-render all event pages (SSG)
+// =======================
 export async function generateStaticParams() {
-  return totalEvents.map((event) => ({
-    slug: event.slug,
-  }));
+  return totalEvents.map((event) => ({ slug: event.slug }));
 }
