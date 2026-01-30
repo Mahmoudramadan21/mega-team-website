@@ -3,15 +3,13 @@ import React, { memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import FacebookIcon from '@/assets/icons/facebook.svg';
-import LinkedInIcon from '@/assets/icons/linkedin.svg';
-import InstagramIcon from '@/assets/icons/instagram.svg';
-import XIcon from '@/assets/icons/x-twitter.svg';
-import YouTubeIcon from '@/assets/icons/youtube.svg';
-import PhoneIcon from '@/assets/icons/phone.svg';
-import EmailIcon from '@/assets/icons/email.svg';
-import LocationIcon from '@/assets/icons/map-pin-icon.svg';
-import UpArrowIcon from '@/assets/icons/arrow-right-icon.svg';
+import { servicesLinks, quickLinks, socialLinks } from "@/data/links";
+import {
+  ArrowRightIcon,
+  EmailIcon,
+  MapPinIcon,
+  PhoneIcon,
+} from "@/assets/icons";
 
 /**
  * Footer Component
@@ -25,38 +23,18 @@ import UpArrowIcon from '@/assets/icons/arrow-right-icon.svg';
  * - Accessibility: ARIA labels, focusable links, decorative icons hidden, skip-to-content friendly
  * - Best Practices: Responsive grid/layout, data-driven links, current year in copyright
  * - Mobile-First: Stacks properly on small screens
- * - All Tailwind classes ordered according to official guidelines:
- *   Layout → Box Model → Typography → Visual → Transitions
+ * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
+
  */
 function Footer() {
   const currentYear = new Date().getFullYear(); // 2025 → will show 2025
 
-  const servicesLinks = [
-    { label: 'Training', href: '/training' },
-    { label: 'Podcast', href: '/podcasts' },
-    { label: 'Events', href: '/events' },
-    { label: 'Workshops', href: '/workshops' },
-  ];
-
-  const quickLinks = [
-    { label: 'Events', href: '/events' },
-    { label: 'MEGAst', href: '/megast' },
-    { label: 'Circles', href: '/circles' },
-    { label: 'Articles', href: '/articles' },
-    { label: 'About Us', href: '/about' },
-  ];
-
-  const socialLinks = [
-    { href: 'https://www.facebook.com/megateam.mu18/', Icon: FacebookIcon, label: 'Facebook' },
-    { href: 'https://eg.linkedin.com/company/mega-team-mu', Icon: LinkedInIcon, label: 'LinkedIn' },
-    { href: 'https://www.instagram.com/megateammu', Icon: InstagramIcon, label: 'Instagram' },
-    { href: 'https://x.com/MegaTeamMU', Icon: XIcon, label: 'X (Twitter)' },
-    { href: 'https://www.youtube.com/@MEGATeamMU', Icon: YouTubeIcon, label: 'YouTube' },
-  ];
-
   return (
     // Main footer container with dark background and light text for contrast
-    <footer className="text-neutral-200 bg-[#0D0D0D]" aria-labelledby="footer-heading">
+    <footer
+      className="text-neutral-200 bg-[#0D0D0D]"
+      aria-labelledby="footer-heading"
+    >
       {/* Inner container for content with vertical padding, responsive for larger screens */}
       <div className="container py-12 lg:py-16">
         {/* Grid layout for footer sections, responsive columns and gaps */}
@@ -65,7 +43,11 @@ function Footer() {
           {/* Column for logo, description, and social links */}
           <div className="flex flex-col gap-4">
             {/* Home link with logo image */}
-            <Link href="/" className="focus-ring" aria-label="MEGA Team MU Home">
+            <Link
+              href="/"
+              className="focus-ring"
+              aria-label="MEGA Team MU Home"
+            >
               <Image
                 src="/logo-white.svg" //  Use white version for dark footer
                 alt="MEGA Team MU Logo"
@@ -76,7 +58,8 @@ function Footer() {
             </Link>
             {/* Descriptive paragraph about the organization */}
             <p className="max-w-xs leading-relaxed font-cairo">
-              Empowering individuals to achieve their dreams through motivation, community and continuous growth.
+              Empowering individuals to achieve their dreams through motivation,
+              community and continuous growth.
             </p>
             {/* Container for social media icons */}
             <div className="flex items-center gap-4 mt-4">
@@ -107,7 +90,10 @@ function Footer() {
               {servicesLinks.map(({ label, href }) => (
                 // List item with link
                 <li key={label}>
-                  <Link href={href} className="focus-ring hover:text-white transition-colors">
+                  <Link
+                    href={href}
+                    className="focus-ring hover:text-white transition-colors"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -119,13 +105,18 @@ function Footer() {
           {/* Column for quick links */}
           <div>
             {/* Heading for quick links section */}
-            <h3 className="mb-4 font-semibold text-lg text-white">Quick Links</h3>
+            <h3 className="mb-4 font-semibold text-lg text-white">
+              Quick Links
+            </h3>
             {/* List of quick links */}
             <ul className="space-y-4 font-cairo">
               {quickLinks.map(({ label, href }) => (
                 // List item with link
                 <li key={label}>
-                  <Link href={href} className="focus-ring hover:text-white transition-colors">
+                  <Link
+                    href={href}
+                    className="focus-ring hover:text-white transition-colors"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -137,7 +128,9 @@ function Footer() {
           {/* Column for contact information */}
           <div>
             {/* Heading for contact section */}
-            <h3 className="mb-4 font-semibold text-lg text-white">Contact Us</h3>
+            <h3 className="mb-4 font-semibold text-lg text-white">
+              Contact Us
+            </h3>
             {/* List of contact details */}
             <ul className="space-y-4 font-cairo">
               {/* Phone contact item */}
@@ -159,7 +152,10 @@ function Footer() {
               {/* Location contact item */}
               <li className="flex items-start gap-3 hover:text-white transition-colors">
                 {/* Location icon with slight top margin, hidden from screen readers */}
-                <LocationIcon className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                <MapPinIcon
+                  className="mt-0.5 h-5 w-5 shrink-0"
+                  aria-hidden="true"
+                />
                 {/* Address element, not italicized */}
                 <address className="not-italic focus-ring">
                   Mansoura University, Dakahlia, Egypt
@@ -178,14 +174,17 @@ function Footer() {
         </p>
       </div>
 
-      {/* Back to Top Button */}
+      {/* Back to Main */}
       <Link
-        href="#top"
+        href="#main"
         className="fixed bottom-8 right-8 z-50 p-4 rounded-full shadow-2xl bg-neutral-800/80 backdrop-blur-sm cursor-pointer hover:bg-neutral-700 focus-ring transition-all"
         aria-label="Back to top"
       >
         {/* Up arrow icon, rotated for upward direction */}
-        <UpArrowIcon className="h-7 w-7 -rotate-90 text-primary-500" aria-hidden="true" />
+        <ArrowRightIcon
+          className="h-7 w-7 -rotate-90 text-primary-500"
+          aria-hidden="true"
+        />
       </Link>
     </footer>
   );

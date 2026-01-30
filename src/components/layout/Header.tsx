@@ -3,13 +3,7 @@
 import React, { memo, useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Events', href: '#upcoming-event' },
-  { label: 'Circles', href: '#circles' },
-];
+import { navItems } from "@/data/links";
 
 /**
  * Header Component
@@ -25,8 +19,8 @@ const navItems = [
  * - Backdrop blur with subtle shadow for modern glass-morphism effect
  * - Logo hover scale and focus-ring support on interactive elements
  * - Memoized with `React.memo` to prevent unnecessary re-renders
- * - All Tailwind classes ordered according to official guidelines:
- *   Layout → Box Model → Typography → Visual → Transitions
+ * - Tailwind classes ordered: Layout → Box Model → Typography → Visual → Transitions
+
  */
 
 function Header() {
@@ -48,18 +42,15 @@ function Header() {
     };
 
     if (open) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
   return (
     // Main header: sticky at top with glass-morphism effect
-    <header
-      className="sticky top-0 z-50 py-4 bg-white/20 backdrop-blur-xl shadow-[0_4px_16px_0_rgba(13,13,13,0.16)]"
-      role="banner"
-    >
+    <header className="sticky top-0 z-50 py-4 bg-white/20 backdrop-blur-xl shadow-[0_4px_16px_0_rgba(13,13,13,0.16)]">
       {/* Container for header content with horizontal layout */}
       <div className="container flex items-center justify-between gap-2">
         {/* Logo */}
@@ -69,7 +60,13 @@ function Header() {
           className="focus-ring hover:scale-105 transition-transform"
           aria-label="Mega Logo"
         >
-          <Image src="/logo.svg" alt="Mega Logo" width={150} height={56} priority />
+          <Image
+            src="/logo.svg"
+            alt="Mega Logo"
+            width={150}
+            height={56}
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -91,7 +88,7 @@ function Header() {
         {/* Desktop CTA */}
         {/* Desktop-only "Join Us" button */}
         <Link
-          href="/events/upcoming"
+          href="/register"
           className="hidden md:inline-flex px-12 focus-ring btn hover:px-11"
         >
           Join Us
@@ -115,15 +112,15 @@ function Header() {
           <div className="space-y-1.5">
             {/* Top line - rotates and translates when open */}
             <span
-              className={`block h-0.5 w-6 bg-[#1E1E1E] transition-all ${open ? 'rotate-45 translate-y-2' : ''}`}
+              className={`block h-0.5 w-6 bg-[#1E1E1E] transition-all ${open ? "rotate-45 translate-y-2" : ""}`}
             />
             {/* Middle line - fades out when open */}
             <span
-              className={`block h-0.5 w-6 bg-[#1E1E1E] transition-all ${open ? 'opacity-0' : ''}`}
+              className={`block h-0.5 w-6 bg-[#1E1E1E] transition-all ${open ? "opacity-0" : ""}`}
             />
             {/* Bottom line - rotates and translates when open */}
             <span
-              className={`block h-0.5 w-6 bg-[#1E1E1E] transition-all ${open ? '-rotate-45 -translate-y-2' : ''}`}
+              className={`block h-0.5 w-6 bg-[#1E1E1E] transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`}
             />
           </div>
         </button>
@@ -134,7 +131,7 @@ function Header() {
       <div
         ref={menuWrapperRef}
         id="mobile-menu"
-        className={`md:hidden overflow-hidden transition-all duration-300 ${open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`md:hidden overflow-hidden transition-all duration-300 ${open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
       >
         {/* Mobile navigation content */}
         <nav aria-label="Mobile navigation" className="container py-4">
@@ -156,7 +153,7 @@ function Header() {
             {/* Mobile "Join Us" CTA */}
             <li>
               <Link
-                href="/events/upcoming"
+                href="/register"
                 className="mt-4 px-16 py-1 rounded-full btn focus-ring"
                 onClick={() => setOpen(false)}
               >
